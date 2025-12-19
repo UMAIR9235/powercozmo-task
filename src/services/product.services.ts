@@ -5,6 +5,8 @@ export async function getProduct(id: string): Promise<Product> {
     cache: "no-store",
   });
 
+  console.log(res);
+
   if (!res.ok) {
     throw new Error("Product not found");
   }
@@ -14,9 +16,10 @@ export async function getProduct(id: string): Promise<Product> {
 
 export async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://fakestoreapi.com/products", {
-    cache: "no-store",
-    // next: { revalidate: 60 },
+    next: { revalidate: 60 },
   });
+
+  console.log(res);
 
   if (!res.ok) {
     throw new Error("Failed to fetch products");
