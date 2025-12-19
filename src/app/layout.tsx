@@ -17,9 +17,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// export const metadata: Metadata = {
+//   title: "Premium Store",
+//   description: "A collection of premium products.",
+// };
 export const metadata: Metadata = {
-  title: "Premium Store",
-  description: "A collection of premium products.",
+  title: {
+    default: "PowerCozmo",
+    template: "%s | PowerCozmo",
+  },
+  description: "A modern e-commerce demo built with Next.js App Router",
+
+  openGraph: {
+    title: "PowerCozmo",
+    description: "A modern e-commerce demo built with Next.js App Router",
+    url: "https://my-gsap-portfolio.vercel.app", // replace with your domain
+    siteName: "PowerCozmo",
+    images: [
+      {
+        url: "https://my-gsap-portfolio.vercel.app/_next/image?url=%2Fgemini01.png&w=3840&q=75", // public image
+        width: 1200,
+        height: 630,
+        alt: "PowerCozmo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

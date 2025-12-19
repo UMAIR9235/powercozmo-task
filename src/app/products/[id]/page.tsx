@@ -1,6 +1,7 @@
-import { Product } from "@/types/product.types";
+import { getProduct } from "@/services/product.services";
 import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -13,10 +14,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const id = (await params).id;
 
-  // fetch post information
-  const product = await fetch(`https://fakestoreapi.com/products/${id}`).then(
-    (res) => res.json()
-  );
+  const product = await getProduct(id);
 
   return {
     title: product.title,
@@ -26,9 +24,12 @@ export async function generateMetadata(
 
 async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const product: Product = await fetch(
-    `https://fakestoreapi.com/products/${id}`
-  ).then((res) => res.json());
+  let product;
+  try {
+    product = await getProduct(id);
+  } catch {
+    notFound();
+  }
 
   return (
     <div className="py-10 space-y-8 min-h-screen">

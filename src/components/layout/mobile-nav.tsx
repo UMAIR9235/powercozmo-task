@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 import AuthButton from "./auth-button";
+import GithubLink from "./github-link";
+import { navLinks } from "@/data/nav.data";
 
 export default function MobileNav() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -37,28 +39,19 @@ export default function MobileNav() {
 
           <nav className="p-6">
             <ul className="flex flex-col gap-y-6 text-lg">
-              <li>
-                <Link href="/" onClick={handleLinkClick}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" onClick={handleLinkClick}>
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" onClick={handleLinkClick}>
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" onClick={handleLinkClick}>
-                  Contact
-                </Link>
-              </li>
-              <li>
+              {navLinks.map((link) => (
+                <li key={link.title}>
+                  <Link href={link.href} onClick={handleLinkClick}>
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+
+              <li key={"auth-button"}>
                 <AuthButton />
+              </li>
+              <li key={"github-link"}>
+                <GithubLink onClick={closeMenu} />
               </li>
             </ul>
           </nav>
