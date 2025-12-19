@@ -14,7 +14,8 @@ export async function getProduct(id: string): Promise<Product> {
 
 export async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://fakestoreapi.com/products", {
-    next: { revalidate: 60 },
+    cache: "no-store",
+    // next: { revalidate: 60 },
   });
 
   if (!res.ok) {
